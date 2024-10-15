@@ -7,6 +7,8 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Illuminate\Support\Facades\validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -61,7 +63,9 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             // Authentication passed
             $request->session()->forget('captcha'); // Clear CAPTCHA session after successful login
-            
+            $user = Auth::user();
+            session(['user_details' => $user]);
+
             if(Auth()->user()->user_type == 0){
                 return redirect()->route('user.dashboard');
             }else{
@@ -82,7 +86,57 @@ class AuthController extends Controller
     }
 
     public function user_registration(Request $request){
-        dd('dashboard');
+        return view('auth.register');
+    }
+
+    public function register(Request $request){
+        // dd($request->all());
+        $rules = [
+            'name' => 'required|string|min:2|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'password' => 'required|string|min:8|confirmed',
+        ];
+    
+        $messages = [
+            'captcha.required' => 'Please enter the CAPTCHA code.',
+        ];
+    
+        $validator = validator::make($request->all(), $rules, $messages);
+    
+        $validator->after(function ($validator) use ($request) {
+            if ($request->input('captcha') !== session('captcha')) {
+                $validator->errors()->add('captcha', 'The CAPTCHA is incorrect.');
+            }
+        });
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $directory = 'uploads/profile_images';
+            
+            if (!is_dir(public_path($directory))) {
+                mkdir(public_path($directory), 0755, true); 
+            }
+
+            $imageName = str_replace(' ', '_', clean_single_input($request->name)) . '_profile_image_' . time() . '.' . $request->image->extension();
+            $request->image->move(public_path($directory), $imageName);
+        }
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'image' => $imageName 
+        ]);
+
+
+        return redirect()->route('user.login')->with('success','Registration successful! You can now log in.');
     }
 
 }

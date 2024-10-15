@@ -37,13 +37,27 @@
             </div>
         </div> -->
 
-        @if($user_details->user_type == 1)
+        @if(session('user_details')->user_type == 1)
             <ul class="nav">
-                <li class="nav-item active">
-                    <a href="index.html">
+                <li class="nav-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <i class="la la-dashboard"></i>
                         <p>Dashboard</p>
                         <span class="badge badge-count">5</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ Request::is('admin/users*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users.index') }}">
+                        <i class="fa fa-user-circle"></i>
+                        <p>Manage User</p>
+                        <span class="badge badge-count">14</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ Request::is('admin/products*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.products.index') }}">
+                        <i class="fa fa-product-hunt"></i>
+                        <p>Manage Product</p>
+                        <span class="badge badge-count">14</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -89,10 +103,10 @@
                 </li>
                 
             </ul>
-        @elseif($user_details->user_type == 0)
+        @elseif(session('user_details')->user_type == 0)
             <ul class="nav">
                 <li class="nav-item active">
-                    <a href="index.html">
+                    <a href="{{ route('user.dashboard') }}">
                         <i class="la la-dashboard"></i>
                         <p>Dashboard</p>
                         <span class="badge badge-count">5</span>

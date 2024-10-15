@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Registration</title>
     <link rel="icon" href="{{ asset('images/lotus.webp') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
@@ -44,22 +44,17 @@
                                                             <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                                                         </div>
 
-                                                        <form action="{{ route('login') }}" method="POST">
+                                                        <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
-                                                            <p>Please login to your account</p>
+                                                            <p>Create your account</p>
 
-                                                            <!-- <div data-mdb-input-init class="form-outline mb-2">
-
-                                                                <label for="user_type">Select Role:</label><br>
-                                                                <input type="radio" id="admin" name="user_type" value="1">
-                                                                <label for="admin">Admin</label><br>
-                                                                <input type="radio" id="user" name="user_type" value="0" checked>
-                                                                <label for="user">User</label>
-                                                            
-                                                                @error('user_type')
+                                                            <div data-mdb-input-init class="form-outline mb-2">
+                                                                <label class="form-label" for="name">Full name</label>
+                                                                <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" value="{{ old('name') }}" />
+                                                                @error('name')
                                                                     <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
-                                                            </div> -->
+                                                            </div>
 
                                                             <div data-mdb-input-init class="form-outline mb-2">
                                                                 <label class="form-label" for="form2Example11">Email</label>
@@ -70,9 +65,25 @@
                                                             </div>
 
                                                             <div data-mdb-input-init class="form-outline mb-2">
+                                                                <label class="form-label" for="image">Image</label>
+                                                                <input type="file" name="image" id="image" class="form-control" />
+                                                                @error('image')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div data-mdb-input-init class="form-outline mb-2">
                                                                 <label class="form-label" for="form2Example22">Password</label>
                                                                 <input type="password" name="password" value="{{ old('password') }}" id="form2Example22" class="form-control" placeholder="Password" />
                                                                 @error('password')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div data-mdb-input-init class="form-outline mb-2">
+                                                                <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                                                <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirmation" class="form-control" placeholder="Confirm Password" />
+                                                                @error('password_confirmation')
                                                                     <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
@@ -95,13 +106,12 @@
                                                             <!-- <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div> -->
 
                                                             <div class="text-center pt-1 mb-5 pb-1">
-                                                                <button class="btn btn-primary btn-block gradient-custom-2 mb-3" type="submit">Log in</button>
-                                                                <a class="text-muted" href="#!">Forgot password?</a>
+                                                                <button class="btn btn-primary btn-block gradient-custom-2 mb-3" type="submit">Register</button>
                                                             </div>
 
                                                             <div class="d-flex align-items-center justify-content-center pb-4">
-                                                                <p class="mb-0 me-2">Don't have an account?</p>
-                                                                <a href="{{ route('user.registration') }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger">Create new</a>
+                                                                <p class="mb-0 me-2">Already Account?</p>
+                                                                <a href="{{ route('user.login') }}" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger">Login</a>
                                                             </div>
                                                         </form>
 

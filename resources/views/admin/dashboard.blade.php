@@ -1,4 +1,4 @@
-This is Admin dashboard.@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'User Dashboard')
 
