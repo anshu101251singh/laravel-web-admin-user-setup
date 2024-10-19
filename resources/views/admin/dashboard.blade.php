@@ -19,7 +19,7 @@
                                 <div class="col-7 d-flex align-items-center">
                                     <div class="numbers">
                                         <p class="card-category">Visitors</p>
-                                        <h4 class="card-title">1,294</h4>
+                                        <h4 class="card-title">{{ number_format($visitors_count) }}</h4>
                                     </div>
                                 </div>
                             </div>

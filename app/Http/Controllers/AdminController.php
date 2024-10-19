@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Visitor;
 
 class AdminController extends Controller
 {
     Public function admin_dashboard(){
-        return view('admin.dashboard');
+        $visitors_count = 0;
+        $visitors_data = Visitor::all();
+        foreach($visitors_data as $val){
+            $visitors_count += $val->visitors_count;
+        }
+        return view('admin.dashboard', compact('visitors_count'));
     }
 
     public function admin_view_profile(){
