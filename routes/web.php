@@ -18,7 +18,7 @@ Route::post('/user-register', [AuthController::class, 'register'])->name('regist
 Route::get('/user-logout', [AuthController::class, 'user_logout'])->name('user.logout');
 
 
-Route::prefix('admin')->name('admin.')->middleware(['check_user'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['check_user','visitors_record'])->group(function () {
     //Admin Dashboard
     Route::get('view-profile', [AdminController::class, 'admin_view_profile'])->name('view.profile');
     Route::get('edit-profile', [AdminController::class, 'admin_edit_profile'])->name('edit.profile');

@@ -1,3 +1,21 @@
+
+<?php
+    // $ip = $_SERVER['REMOTE_ADDR'];
+
+    // if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    //     $ip = $_SERVER['HTTP_CLIENT_IP'];
+    // } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    //     $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    // }
+
+    // $pageurl = $_SERVER['REQUEST_URI'];
+    // $ip 		 = clean_single_input($ip);
+    // $pageurl = clean_single_input($pageurl);
+
+    // update_visitor_count($ip, $pageurl);
+    // $langid1 = session()->get('locale')??1;
+  ?>
+
 <div class="main-header">
     <div class="logo-header">
         <a href="@if(session('user_details')->user_type == 1)  {{ route('admin.dashboard') }} @else {{ route('user.dashboard') }} @endif" class="logo">

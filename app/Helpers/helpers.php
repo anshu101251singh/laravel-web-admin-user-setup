@@ -22,3 +22,9 @@ if (!function_exists('format_date')) {
         return \Carbon\Carbon::parse($date)->format('d-m-Y');
     }
 }
+
+// if (!function_exists('update_visitors_count')){
+//     function update_visitors_count(){
+        
+//     }
+// }
