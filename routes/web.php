@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\VisitorsController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -27,6 +28,8 @@ Route::prefix('admin')->name('admin.')->middleware(['check_user','visitors_recor
 
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+
+    Route::get('dashboard/visitors-details', [VisitorsController::class, 'admin_visitors_detail'])->name('visitors.index');
 
     //user dashboard
     // Route::get('/user/dashboard', [UserController::class, 'user_dashboard'])->name('user.dashboard');

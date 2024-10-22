@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 if (!function_exists('clean_single_input')) {
     function clean_single_input($input)
@@ -20,6 +21,12 @@ if (!function_exists('format_date')) {
     function format_date($date)
     {
         return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    }
+}
+
+if(!function_exists('displayInIST')){
+    function displayInIST($date) {
+        return Carbon::parse($date)->setTimezone('Asia/Kolkata')->format('d-m-Y h:i:s A');
     }
 }
 

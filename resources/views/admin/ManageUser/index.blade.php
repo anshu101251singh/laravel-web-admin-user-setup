@@ -22,6 +22,7 @@
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Status </th>
+                                        <th> Image </th>
                                         <th> Created Date </th>
                                         <th> Actions </th>
                                     </tr>
@@ -35,6 +36,13 @@
                                         <td> {{ $val->name }} </td>
                                         <td> {{ $val->email }} </td>
                                         <td> @if($val->status == 1) <span class="badge badge-success">Active</span> @else <span class="badge badge-danger">Non-active</span> @endif </td>
+                                        <td> 
+                                            @if($val->image)
+                                                <img src="{{ asset('/uploads/profile_images/' . $val->image) }}" alt="Profile Image" style="max-width: 100px; max-height: 100px;">
+                                            @else
+                                                No Image
+                                            @endif 
+                                        </td>
                                         <td> {{ date('d-m-Y', strtotime($val->created_at)) }} </td>
                                         <td> 
                                             <a href="{{ route('admin.users.edit', $val->id) }}" class="btn btn-primary"> Edit </a>
@@ -53,8 +61,9 @@
                                     @endif
                                 </tbody>
                             </table>
-                        </td>
-                    </td>
+                            {!! $user_list->withQueryString()->links('pagination::bootstrap-5') !!}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

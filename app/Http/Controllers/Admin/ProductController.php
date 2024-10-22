@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     public function index(){
-        $product_list = Products::all();
+        $product_list = Products::orderBy('id','ASC')->paginate(10);
         return view('admin.products.index', compact('product_list'));
     }
 
@@ -54,7 +54,11 @@ class ProductController extends Controller
         // $sku = 'SWT-'.Str::upper(Str::random(5));
         $productsOrderNumber = Products::latest('id')->first();
         if($productsOrderNumber){
-            $sku = 'SWT'.str_pad($productsOrderNumber, 6, '0', STR_PAD_LEFT);
+            $lastSku = $productsOrderNumber->sku;
+            $lastSkuNumber = (int) substr($lastSku, 3);
+            $newSkuNumber = $lastSkuNumber + 1;
+
+            $sku = 'SWT'.str_pad($newSkuNumber, 6, '0', STR_PAD_LEFT);
         }else{
             $sku = 'SWT000001';
         }

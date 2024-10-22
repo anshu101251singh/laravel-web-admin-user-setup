@@ -39,7 +39,7 @@
 
         @if(session('user_details')->user_type == 1)
             <ul class="nav">
-                <li class="nav-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
                     <a href="{{ route('admin.dashboard') }}">
                         <i class="la la-dashboard"></i>
                         <p>Dashboard</p>

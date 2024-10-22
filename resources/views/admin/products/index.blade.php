@@ -74,8 +74,12 @@
                                     @endif
                                 </tbody>
                             </table>
-                        </td>
-                    </td>
+                            <!-- <div class="pagination mb-3 text-right"> -->
+                                <!-- {{ $product_list->links() }} -->
+                                {!! $product_list->withQueryString()->links('pagination::bootstrap-5') !!}
+                            <!-- </div> -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

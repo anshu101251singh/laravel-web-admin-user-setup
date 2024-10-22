@@ -19,7 +19,7 @@ class UserController extends Controller
 
 
     public function index(Request $request){
-        $user_list = User::where('user_type', '0')->get();
+        $user_list = User::where('user_type', '0')->paginate(10);
         return view('admin.ManageUser.index', compact('user_list',));
     }
 
